@@ -1,0 +1,62 @@
+Caso de uso – Buscar local
+1.	Descrição: busca um local no mapa
+2.	Atores: usuário
+3.	Pré-condições: ter o mapa aberto
+4.	Trigger: clicar na barra de pesquisa
+5.	Fluxos:
+    Básico:
+    1. Usuário digita local na barra de busca;
+    2. Sistema procura local;
+    3. Sistema coloca um PIN no local;
+
+    Alternativo:
+    1. Usuário clica em um local do mapa;
+        1.1. Sistema busca o local na barra de pesquisa;
+        1.2. Volta ao fluxo principal 3;
+
+    Alternativo:
+    1. Usuário busca locais por categoria;
+        1.1. Sistema mostra locais da categoria escolhida;
+    2. Usuário seleciona o lugar desejado;
+        2.1. Sistema busca o local na barra de pesquisa;
+        2.2. Volta ao fluxo principal 3;
+
+6.	Pós-condições: o local é guardado no histórico
+
+Caso de uso – Buscar local por categoria
+1.	Descrição: busca um local por sua categoria
+2.	Atores: usuário
+3.	Pré-condições: ter o mapa aberto
+4.	Trigger: selecionar uma categoria
+5.	Fluxos:
+    Básico:
+    1. Usuário seleciona a categoria desejada;
+    2. Sistema procura locais que atendem àquela categoria;
+    3. Sistema coloca um PIN em cada local encontrado;
+
+6.	Pós-condições: 
+
+Caso de uso – Favoritar ponto
+1.	Descrição: favorita um ponto do mapa
+2.	Atores: usuário
+3.	Pré-condições: Ter um local selecionado
+4.	Trigger: Clicar em favoritar
+5.	Fluxos:
+    Básico:
+    1. Usuário clica no botao de favoritar;
+    2. Sistema adiciona ponto na lista de favoritos;
+
+6.	Pós-condições: salvar nos favoritos
+
+Caso de uso – Gerar rota
+1.	Descrição: gera a rota para o local selecionado
+2.	Atores: sistema
+3.	Pré-condições: Ter um local selecionado
+4.	Trigger: Clicar para gerar a rota
+5.	Fluxos:
+    Básico:
+    1. Usuário clica no botao de gerar rota;
+    2. Sistema gera rota para local escolhido;
+
+6.	Pós-condições: 
+

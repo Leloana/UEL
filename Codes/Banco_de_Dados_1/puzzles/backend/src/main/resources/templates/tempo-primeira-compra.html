@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Tempo para Primeira Compra</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Inclui a biblioteca Chart.js -->
+    <link th:href="@{/style.css}" rel="stylesheet" />
+    <style>
+        .container {
+            margin-top: 20px;
+        }
+        .chart-container, .table-container {
+            margin-top: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Relatório de Tempo para Primeira Compra</h1>
+
+        <!-- Verifique se há algum erro -->
+        <div th:if="${error}" style="color: red;">
+            <p th:text="${error}"></p>
+        </div>
+
+        <!-- Gráfico de Tempo para Primeira Compra -->
+        <div class="chart-container">
+            <canvas id="tempoPrimeiraCompraChart" width="800" height="400"></canvas>
+        </div>
+
+        <!-- Tabela de Dados -->
+        <div class="table-container">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID do Usuário</th>
+                        <th>Login</th>
+                        <th>Dias para Primeira Compra</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="item : ${tempoParaPrimeiraCompra}">
+                        <td th:text="${item['id']}">ID do Usuário</td>
+                        <td th:text="${item['login']}">Login</td>
+                        <td th:text="${item['dias_para_primeira_compra']}">Dias para Primeira Compra</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Script para renderizar o gráfico com Chart.js -->
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        document.addEventListener('DOMContentLoaded', function () {
+            // Obter os dados do Thymeleaf no formato JSON seguro para JavaScript
+            let tempoParaPrimeiraCompra = /*[[${tempoParaPrimeiraCompra}]]*/[];
+
+            // Extraindo os labels (login) e os dados (dias_para_primeira_compra)
+            const labels = tempoParaPrimeiraCompra.map(function (item) {
+                return item.login;
+            });
+
+            const diasParaCompra = tempoParaPrimeiraCompra.map(function (item) {
+                return item.dias_para_primeira_compra;
+            });
+
+            // Configuração do gráfico usando Chart.js
+            const ctx = document.getElementById('tempoPrimeiraCompraChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar', // Tipo do gráfico (barras)
+                data: {
+                    labels: labels, // Login dos usuários
+                    datasets: [
+                        {
+                            label: 'Dias para Primeira Compra',
+                            data: diasParaCompra, // Dias para a primeira compra de cada usuário
+                            backgroundColor: 'rgba(54, 162, 235, 0.6)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+        /*]]>*/
+    </script>
+</body>
+</html>

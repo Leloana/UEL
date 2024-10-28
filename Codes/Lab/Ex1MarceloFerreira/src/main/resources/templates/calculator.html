@@ -1,0 +1,48 @@
+<!-- src/main/resources/templates/calculator.html -->
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Simples</title>
+</head>
+<body>
+
+<h2>Calculator</h2>
+
+<form action="/calculator" method="post" th:object="${calculator}">
+    <label for="num1">First Value:</label>
+    <input type="text" id="num1" name="num1" th:field="*{num1}" required>
+
+    <br>
+    <br>
+    <label for="operation">Operation:</label>
+    <select id="operation" name="operation">
+        <option value="add">Addition</option>
+        <option value="subtract">Subtraction</option>
+        <option value="multiply">Multiplication</option>
+        <option value="divide">Division</option>
+    </select>
+    <br>
+    <br>
+
+    <label for="num2">Second Value:</label>
+    <input type="text" id="num2" name="num2" th:field="*{num2}" required>
+
+    <br>
+    <br>
+
+    <button type="submit">Calculate</button>
+</form>
+
+<div th:if="${result}">
+    <p th:text="'Result: ' + ${result}"></p>
+</div>
+
+<div th:if="${error}">
+    <p th:text="${error}" style="color: red;"></p>
+</div>
+
+</body>
+</html>

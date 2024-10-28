@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurantes</title>
+    <!-- Link para o arquivo CSS -->
+    <link rel="stylesheet" type="text/css" href="/styles.css">
+
+</head>
+<body>
+<div class="main">
+    <div th:if="${#lists.isEmpty(itensPedidos)}">
+        <h2 class="titulo">Ainda não há pedidos!</h2>
+        <p><a class="link" href="/index">Restaurantes</a></p>
+    </div>
+    <div th:if="${not #lists.isEmpty(itensPedidos)}">
+        <h2 class="titulo">Itens Pedidos</h2>
+        <div class="container">
+            <table>
+                <tbody>
+                <tr th:each="itemPedido : ${itensPedidos}">
+                    <td class="nomes" th:text="${itemPedido.item.nome}"></td>
+                    <td class="nomes" th:text="${itemPedido.item.descricao}"></td>
+                    <td class="nomes" th:text="'R$ '+ ${itemPedido.item.preco}"></td>
+                    <td class="nomes" th:text="${itemPedido.quantidade}"></td>
+                    <td class="acoes"><a th:href="@{/aumentar-pedido/{id}(id=${itemPedido.id})}">Aumentar</a></td>
+                    <td class="acoes"><a th:href="@{/diminuir-pedido/{id}(id=${itemPedido.id})}">Diminuir</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="valor">Total: <span th:text="${valorTotal}"></span></p>
+        <p><a class="link" href="/index">Restaurantes</a></p>
+    </div>
+</div>
+</body>
+</html>

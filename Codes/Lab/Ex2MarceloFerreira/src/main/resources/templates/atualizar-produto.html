@@ -1,0 +1,18 @@
+<form action="#"
+      th:action="@{/atualizar/{id}(id=${produto.id})}"
+      th:object="${produto}"
+      method="post">
+    <label for="nome">Nome: </label>
+    <input type="text" th:field="*{nome}" id="nome">
+    <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+    <br/>
+    <label for="preco">Preco:</label>
+    <input type="text" th:field="*{preco}" id="preco" step="any">
+    <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+    <br/>
+    <label for="quantidade">Quantidade:</label>
+    <input type="number" th:field="*{quantidade}" id="quantidade">
+    <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+    <br/>
+    <input type="submit" value="Atualizar">
+</form>

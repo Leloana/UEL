@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Análise de Vendas por Período</title>
+    <script>
+        function atualizarCampoValor() {
+            const tipo = document.getElementById('tipo').value;
+            const valorInput = document.getElementById('valor');
+
+            if (tipo === 'dia') {
+                valorInput.placeholder = 'Digite o dia (ex.: 01/10/2024)';
+                valorInput.type = 'date';
+                valorInput.required = true;
+            } else if (tipo === 'mes') {
+                valorInput.placeholder = 'Digite o mês/ano (ex.: 10/2024)';
+                valorInput.type = 'month';
+                valorInput.required = true;
+            } else if (tipo === 'ano') {
+                valorInput.placeholder = 'Digite o ano (ex.: 2024)';
+                valorInput.type = 'number';
+                valorInput.min = '1900';
+                valorInput.max = '2100';
+                valorInput.required = true;
+            } else {
+                valorInput.placeholder = '';
+                valorInput.type = 'text';
+                valorInput.required = false;
+            }
+        }
+
+        function redirecionarFormulario(event) {
+            event.preventDefault();
+
+            const tipo = document.getElementById('tipo').value;
+            let valor = document.getElementById('valor').value;
+
+            if (tipo && valor) {
+
+                if (tipo === 'dia') {
+                    valor = valor.split('-').reverse().join('-'); // Formato: DD-MM-YYYY
+                }
+
+                window.location.href = `/relatorios/vendas-por-periodo.html/${tipo}/${valor}`;
+            } else {
+                alert('Por favor, selecione o tipo e informe o valor do período.');
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Análise de Vendas por Período</h1>
+    <form onsubmit="redirecionarFormulario(event)">
+        <label for="tipo">Escolha o Tipo de Período:</label>
+        <select id="tipo" name="tipo" onchange="atualizarCampoValor()">
+            <option value="">Selecione</option>
+            <option value="dia">Dia Específico</option>
+            <option value="mes">Mês Específico</option>
+            <option value="ano">Ano Específico</option>
+        </select>
+        <br><br>
+
+        <label for="valor">Informe o Valor do Período:</label>
+        <input type="text" id="valor" name="valor" placeholder="Selecione o tipo de período primeiro">
+        <br><br>
+
+        <button type="submit" class="btn btn-primary">Analisar Vendas</button>
+    </form>
+</body>
+
+</html>

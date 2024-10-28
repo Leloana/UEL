@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Compras por Usuário</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Inclui a biblioteca Chart.js -->
+    <link th:href="@{/style.css}" rel="stylesheet" />
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Relatório de Compras por Usuário</h1>
+
+        <!-- Verifique se há algum erro -->
+        <div th:if="${error}" style="color: red;">
+            <p th:text="${error}"></p>
+        </div>
+
+        <!-- Gráfico de Compras por Usuário -->
+        <div class="chart-container mt-4">
+            <canvas id="comprasUsuarioChart" width="800" height="400"></canvas>
+        </div>
+
+        <!-- Tabela de Dados -->
+        <div class="table-container mt-4">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID do Usuário</th>
+                        <th>Login</th>
+                        <th>Total de Compras</th>
+                        <th>Valor Total Comprado (R$)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="item : ${comprasPorUsuario}">
+                        <td th:text="${item['id']}">ID do Usuário</td>
+                        <td th:text="${item['login']}">Login</td>
+                        <td th:text="${item['total_compras']}">Total de Compras</td>
+                        <td th:text="${item['valor_total']}">Valor Total</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Script para renderizar o gráfico com Chart.js -->
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        document.addEventListener('DOMContentLoaded', function () {
+            // Obter os dados do Thymeleaf no formato JSON seguro para JavaScript
+            let comprasPorUsuario = /*[[${comprasPorUsuario}]]*/[];
+
+            // Extraindo os labels (login) e os dados (total_compras)
+            const labels = comprasPorUsuario.map(function (item) {
+                return item.login;
+            });
+
+            const totalCompras = comprasPorUsuario.map(function (item) {
+                return item.total_compras;
+            });
+
+            // Configuração do gráfico usando Chart.js
+            const ctx = document.getElementById('comprasUsuarioChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar', // Tipo do gráfico (barras)
+                data: {
+                    labels: labels, // Login dos usuários
+                    datasets: [
+                        {
+                            label: 'Total de Compras',
+                            data: totalCompras, // Quantidade de compras por usuário
+                            backgroundColor: 'rgba(255, 99, 132, 0.6)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+        /*]]>*/
+    </script>
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Categorias Compradas por Usuário</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Inclui a biblioteca Chart.js -->
+    <link th:href="@{/style.css}" rel="stylesheet" />
+    <style>
+        .container {
+            margin-top: 20px;
+        }
+        .chart-container, .table-container {
+            margin-top: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Relatório de Categorias Compradas por Usuário</h1>
+
+        <!-- Verifique se há algum erro -->
+        <div th:if="${error}" style="color: red;">
+            <p th:text="${error}"></p>
+        </div>
+
+        <!-- Gráfico de Categorias Compradas por Usuário -->
+        <div class="chart-container">
+            <canvas id="categoriasCompradasChart" width="800" height="400"></canvas>
+        </div>
+
+        <!-- Tabela de Dados -->
+        <div class="table-container">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID do Usuário</th>
+                        <th>Login</th>
+                        <th>Categorias Compradas</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="item : ${categoriasCompradasPorUsuario}">
+                        <td th:text="${item['id']}">ID do Usuário</td>
+                        <td th:text="${item['login']}">Login</td>
+                        <td th:text="${item['categorias_compradas']}">Categorias Compradas</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Script para renderizar o gráfico com Chart.js -->
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        document.addEventListener('DOMContentLoaded', function () {
+            // Obter os dados do Thymeleaf no formato JSON seguro para JavaScript
+            let categoriasCompradasPorUsuario = /*[[${categoriasCompradasPorUsuario}]]*/[];
+
+            // Extraindo os labels (login) e os dados (categorias_compradas)
+            const labels = categoriasCompradasPorUsuario.map(function(item) {
+                return item.login;
+            });
+
+            const categoriasCompradas = categoriasCompradasPorUsuario.map(function(item) {
+                return item.categorias_compradas;
+            });
+
+            // Configuração do gráfico usando Chart.js
+            const ctx = document.getElementById('categoriasCompradasChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar', // Tipo do gráfico (barras)
+                data: {
+                    labels: labels, // Logins dos usuários
+                    datasets: [
+                        {
+                            label: 'Categorias Compradas',
+                            data: categoriasCompradas, // Quantidade de categorias compradas por cada usuário
+                            backgroundColor: 'rgba(153, 102, 255, 0.6)',
+                            borderColor: 'rgba(153, 102, 255, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+        /*]]>*/
+    </script>
+</body>
+</html>

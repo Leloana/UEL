@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Tempo Médio entre Compras por Categoria</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Inclui a biblioteca Chart.js -->
+    <link th:href="@{/style.css}" rel="stylesheet" />
+    <style>
+        .container {
+            margin-top: 20px;
+        }
+        .chart-container, .table-container {
+            margin-top: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Relatório de Tempo Médio entre Compras por Categoria</h1>
+
+        <!-- Verifique se há algum erro -->
+        <div th:if="${error}" style="color: red;">
+            <p th:text="${error}"></p>
+        </div>
+
+        <!-- Gráfico de Tempo Médio entre Compras por Categoria -->
+        <div class="chart-container">
+            <canvas id="tempoMedioEntreComprasChart" width="800" height="400"></canvas>
+        </div>
+
+        <!-- Tabela de Dados -->
+        <div class="table-container">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID do Usuário</th>
+                        <th>Login</th>
+                        <th>Categoria</th>
+                        <th>Tempo Médio entre Compras (dias)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="item : ${tempoMedioEntreCompras}">
+                        <td th:text="${item['id']}">ID do Usuário</td>
+                        <td th:text="${item['login']}">Login</td>
+                        <td th:text="${item['categoria']}">Categoria</td>
+                        <td th:text="${item['tempo_medio_entre_categoria']}">Tempo Médio entre Compras</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Script para renderizar o gráfico com Chart.js -->
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        document.addEventListener('DOMContentLoaded', function () {
+            // Obter os dados do Thymeleaf no formato JSON seguro para JavaScript
+            let tempoMedioEntreCompras = /*[[${tempoMedioEntreCompras}]]*/[];
+
+            // Extraindo os labels (login e categoria) e os dados (tempo_medio_entre_categoria)
+            const labels = tempoMedioEntreCompras.map(function (item) {
+                return item.login + ' - ' + item.categoria;
+            });
+
+            const tempoMedio = tempoMedioEntreCompras.map(function (item) {
+                return item.tempo_medio_entre_categoria;
+            });
+
+            // Configuração do gráfico usando Chart.js
+            const ctx = document.getElementById('tempoMedioEntreComprasChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar', // Tipo do gráfico (barras)
+                data: {
+                    labels: labels, // Usuários e categorias
+                    datasets: [
+                        {
+                            label: 'Tempo Médio entre Compras (dias)',
+                            data: tempoMedio, // Tempo médio entre compras de cada categoria para cada usuário
+                            backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+        /*]]>*/
+    </script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Escolher Período para Vendas</title>
+    <script>
+        function atualizarCampoValor() {
+            const tipo = document.getElementById('tipo').value;
+            const valorInput = document.getElementById('valor');
+            
+            if (tipo === 'dia') {
+                valorInput.placeholder = 'Digite o dia (ex.: 01/10/2024)';
+                valorInput.type = 'date';
+                valorInput.required = true;
+            } else if (tipo === 'mes') {
+                valorInput.placeholder = 'Digite o mês/ano (ex.: 10/2024)';
+                valorInput.type = 'month';
+                valorInput.required = true;
+            } else if (tipo === 'ano') {
+                valorInput.placeholder = 'Digite o ano (ex.: 2024)';
+                valorInput.type = 'number';
+                valorInput.min = '1900';
+                valorInput.max = '2100';
+                valorInput.required = true;
+            } else {
+                valorInput.placeholder = '';
+                valorInput.type = 'text';
+                valorInput.required = false;
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Escolher Período para Análise de Vendas</h1>
+    <form action="#" th:action="@{/vendas-por-periodo}" method="post">
+        <label for="tipo">Escolha o Tipo de Período:</label>
+        <select id="tipo" name="tipo" onchange="atualizarCampoValor()">
+            <option value="dia">Dia Específico</option>
+            <option value="mes">Mês Específico</option>
+            <option value="ano">Ano Específico</option>
+        </select>
+        <br><br>
+
+        <label for="valor">Informe o Valor do Período:</label>
+        <input type="text" id="valor" name="valor" placeholder="Selecione o tipo de período primeiro">
+        <br><br>
+
+        <button type="submit">Analisar Vendas</button>
+    </form>
+</body>
+</html>

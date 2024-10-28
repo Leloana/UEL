@@ -1,0 +1,5 @@
+1 - Escolher o merodo apropriado e definir o tipo da função (ordinaria, grau, e metodos como variacao de parametros,etc)
+2 - Resolver equacao homogenea y''+ y = 0 que ficaria lambda^2 + 1 = 0
+	> Usar variaçao de parametros
+3 - PVI
+4 - Laplace

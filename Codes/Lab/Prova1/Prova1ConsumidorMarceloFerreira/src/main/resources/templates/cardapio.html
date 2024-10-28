@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardápio</title>
+    <!-- Link para o arquivo CSS -->
+    <link rel="stylesheet" type="text/css" href="/styles.css">
+</head>
+<body>
+<div class="main">
+    <form action="#"
+          th:action="@{/ver-cardapio/{id}(id=${restaurante.id})}"
+          th:object="${restaurante}"
+          method="post">
+        <div th:if="${#lists.isEmpty(itensCardapio)}">
+            <h2 class="titulo">Ainda não há itens no cardápio!</h2>
+            <p><a class = "link" href="/index">Restaurantes</a></p>
+        </div>
+        <div th:if="${not #lists.isEmpty(itensCardapio)}">
+            <h2 class="titulo">Cardápio</h2>
+            <div class = "container">
+                <table>
+                    <tbody>
+                    <tr th:each="itemCardapio : ${itensCardapio}">
+                        <td class="nomes" th:text="${itemCardapio.nome}"></td>
+                        <td class="nomes" th:text="${itemCardapio.descricao}"></td>
+                        <td class="nomes" th:text="${itemCardapio.preco}"></td>
+                        <td class="acoes"><a th:href="@{/pedir/{id}(id=${itemCardapio.id})}">Pedir</a></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p><a class = "link" href="/index">Restaurantes</a></p>
+            <p><a class = "link" href="/pedidos">Ver pedido</a></p>
+        </div>
+    </form>
+</div>
+</body>
+</html>

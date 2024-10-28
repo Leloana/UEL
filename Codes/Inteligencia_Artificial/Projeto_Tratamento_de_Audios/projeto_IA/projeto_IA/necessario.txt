@@ -1,0 +1,12 @@
+Inicializar ambiente virtual
+pip install -r requirementos.txt
+Checar se está usando driver CUDA da nvidia ou outros
+Repositorios:
+    git clone https://github.com/Cris140/tacotron2
+    git clone https://github.com/SortAnon/hifi-gan
+Modelos(Colocar na pasta model):
+    wget "https://github.com/johnpaulbin/tacotron2/releases/download/Main/Superres_Twilight_33000" -O hifimodel_v1
+    wget "https://github.com/johnpaulbin/tacotron2/releases/download/Main/g_02500000" -O hifimodel_v2
+    whisper transcriber: https://colab.research.google.com/drive/1lCKGqTrQ2bpkQxsByxky40Uq0x-kDWZF
+
+Caso surja algum erro recomendo acessar links.txt

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Dashboard de Relatórios</title>
+</head>
+<body>
+    <h1>Relatórios da Loja</h1>
+    <ul>
+        <li><a th:href="@{/relatorios/vendas-por-puzzle.html}">Vendas por Puzzle</a></li>
+        <li><a th:href="@{/relatorios/vendas-por-marca.html}">Vendas por Marca</a></li>
+        <li><a th:href="@{/relatorios/vendas-por-preco.html}">Vendas por Faixa de Preço</a></li>
+        <li><a th:href="@{/relatorios/vendas-por-categoria.html}">Vendas por Categoria</a></li>
+        <li><a th:href="@{/relatorios/analise-por-periodo.html}">Análise de Vendas por Período</a></li> <!-- Link para a página de escolha de período -->
+        <li><a th:href="@{/relatorios/compras-por-usuario.html}">Compras por Usuário</a></li>
+        <li><a th:href="@{/relatorios/tempo-primeira-compra.html}">Tempo para Primeira Compra</a></li>
+        <li><a th:href="@{/relatorios/categorias-compradas-usuario.html}">Categorias Compradas por Usuário</a></li>
+        <li><a th:href="@{/relatorios/tempo-medio.html}">Tempo Médio entre Compras de Categoria</a></li>
+    </ul>
+</body>
+</html>

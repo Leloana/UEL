@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Restaurante</title>
+    <!-- Link para o arquivo CSS -->
+    <link rel="stylesheet" type="text/css" href="/styles.css">
+
+</head>
+<body>
+<div class = "main">
+    <form action="#"
+          th:action="@{/atualizar/{id}(id=${restaurante.id})}"
+          th:object="${restaurante}"
+          method="post">
+        <h2 class = "titulo">Editar Restaurante</h2>
+        <div class = "container">
+            <input class ="custom-input"  type="text" th:field="*{nome}" id="nome" placeholder="Nome do Restaurante">
+            <span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+            <br/>
+            <br/>
+            <div class="custom-button-container">
+                <button class="custom-button" type="submit" value="Adicionar">Editar</button>
+            </div>
+        </div>
+        <p><a class = "link" href="/index">Voltar</a></p>
+    </form>
+</div>
+</body>
+</html>

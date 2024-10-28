@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurantes</title>
+    <!-- Link para o arquivo CSS -->
+    <link rel="stylesheet" type="text/css" href="/styles.css">
+
+</head>
+<body>
+<div class = "main">
+    <div th:switch="${restaurantes}">
+        <h2 th:case="null">Ainda não há restaurantes!</h2>
+        <div th:case="*">
+            <h2 class="titulo">Restaurantes</h2>
+            <div  class = "container">
+            <table>
+                <tbody>
+                <tr th:each="restaurante : ${restaurantes}">
+                    <td class="nomes" th:text="${restaurante.nome}"></td>
+                    <td class="acoes"><a th:href="@{/editar/{id}(id=${restaurante.id})}">Editar</a></td>
+                    <td class="acoes"><a th:href="@{/remover/{id}(id=${restaurante.id})}">Remover</a></td>
+                    <td class="acoes"><a th:href="@{/ver-cardapio/{id}(id=${restaurante.id})}">Cardápio</a></td>
+                </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+        <br>
+        <p><a class = "link" href="/novo-restaurante">Adicionar Restaurante</a></p>
+    </div>
+</div>
+</body>
+</html>

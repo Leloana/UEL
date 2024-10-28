@@ -1,0 +1,5 @@
+Repositórios de que os codigos foram retirados, analisados e adaptados.
+
+tacotron2: https://colab.research.google.com/drive/1-7xMeBmN6MHNLnPZPNptCdAMtGMPIirU
+sintetizador: https://colab.research.google.com/drive/1-XWvLVhD11ZFosHsEqLnhiF58y-LlQWh
+whisper transcriber: https://colab.research.google.com/drive/1lCKGqTrQ2bpkQxsByxky40Uq0x-kDWZF

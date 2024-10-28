@@ -39,7 +39,7 @@ Here’s a list of some key projects included in this repository:
 To clone and explore this repository:
 
 ```bash
-git clone https://github.com/yourusername/your-repository-name.git
+git clone https://github.com/Leloana/UEL.git
 ```
 ## Acknowledgments
 This collection is a result of my academic journey at UEL. I’d like to thank my professors, peers, and the open-source community, who all contributed to my growth and knowledge in computer science.

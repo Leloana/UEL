@@ -1,0 +1,21 @@
+O Jogo da Vida (The Game of Life - John Conway/1970) é um exemplo de “zero-player game” (ou jogo de simulação). O jogo consiste de um quadro bi-dimensional com dimensões infinitas, esse quadro é dividido em células, cada célula pode apresentar status de “viva” ou “morta” em cada geração. O jogo apresenta regras que determinam o status de cada célula na próxima geração. Sua função é descrever o status de cada célula em uma sequência de gerações.
+
+O status da célula em sua próxima geração é determinado pelo status das céluas vizinhas na geração atual. Considere um quadro com dimensões 30x30. O conjunto de regras é descrito a seguir:
+
+Uma célula viva com menos que dois vizinhos vivos, morre na próxima geração;
+
+Uma célula viva com mais de três vizinho vivos também morre;
+
+Uma céluls viva com exatamente dois ou três vizinhos vivos, também vive;
+
+Uma célula morta com exatamente 3 vizinho vivos, torna-se viva.
+
+Como estamos trabalhando em um espaço finito, uma célula posicionada fora do quadro é considerada morta.
+
+Considerando 1 como vivo e 0 como morto, faça a leitura de um arquivo texto com a mesma dimensão do quadro (30x30), e a leitura da quantidade de gerações a serem simuladas, realizando a simulação dessas gerações, fazendo um intervalo de tempo entre cada geração.
+
+O nome do arquivo texto e a quantidade de gerações são parâmetros de entrada do programa.
+
+Utilizar funções e ponteiros em seu código.
+
+Detalhes sobre o Conway’s Game of Life em http://en.wikipedia.org/wiki/Conway’s_Game_of_Life.

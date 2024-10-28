@@ -1,4 +1,5 @@
 # Computer Science Projects - UEL
+![UEL logo](images/logo-uel-grande.jpg)
 
 Welcome to my repository! This is a collection of the most projects developed throughout my **Computer Science degree at UEL** (Universidade Estadual de Londrina). Here, you’ll find a variety of projects that showcase my progress, learning, and interests across multiple domains of computer science.
 

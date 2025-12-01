@@ -1,0 +1,97 @@
+RELATORIO
+STRACE:
+=======================================================================================================================
+execve("./a.out", ["./a.out", "orig.txt", "dest.txt"], 0x7ffdf0dd4040 /* 28 vars */) = 0
+brk(NULL)                               = 0x55fd11686000
+arch_prctl(0x3001 /* ARCH_??? */, 0x7ffe4a01e500) = -1 EINVAL (Invalid argument)
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f67401f9000
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=19379, ...}, AT_EMPTY_PATH) = 0
+mmap(NULL, 19379, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f67401f4000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0P\237\2\0\0\0\0\0"..., 832) = 832
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+pread64(3, "\4\0\0\0 \0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0"..., 48, 848) = 48
+pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0I\17\357\204\3$\f\221\2039x\324\224\323\236S"..., 68, 896) = 68
+newfstatat(3, "", {st_mode=S_IFREG|0755, st_size=2220400, ...}, AT_EMPTY_PATH) = 0
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+mmap(NULL, 2264656, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f673ffcb000
+mprotect(0x7f673fff3000, 2023424, PROT_NONE) = 0
+mmap(0x7f673fff3000, 1658880, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x28000) = 0x7f673fff3000
+mmap(0x7f6740188000, 360448, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1bd000) = 0x7f6740188000
+mmap(0x7f67401e1000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x215000) = 0x7f67401e1000
+mmap(0x7f67401e7000, 52816, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f67401e7000
+close(3)                                = 0
+mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f673ffc8000
+arch_prctl(ARCH_SET_FS, 0x7f673ffc8740) = 0
+set_tid_address(0x7f673ffc8a10)         = 3544
+set_robust_list(0x7f673ffc8a20, 24)     = 0
+rseq(0x7f673ffc90e0, 0x20, 0, 0x53053053) = 0
+mprotect(0x7f67401e1000, 16384, PROT_READ) = 0
+mprotect(0x55fd0c188000, 4096, PROT_READ) = 0
+mprotect(0x7f6740233000, 8192, PROT_READ) = 0
+prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+munmap(0x7f67401f4000, 19379)           = 0
+getrandom("\x59\x71\x46\xf8\x55\x98\x4a\xa2", 8, GRND_NONBLOCK) = 8
+brk(NULL)                               = 0x55fd11686000
+brk(0x55fd116a7000)                     = 0x55fd116a7000
+openat(AT_FDCWD, "orig.txt", O_RDONLY)  = 3
+openat(AT_FDCWD, "dest.txt", O_WRONLY|O_CREAT|O_TRUNC, 0666) = 4
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=12, ...}, AT_EMPTY_PATH) = 0
+read(3, "Hello world!", 4096)           = 12
+read(3, "", 4096)                       = 0
+newfstatat(4, "", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_EMPTY_PATH) = 0
+close(3)                                = 0
+write(4, "Hello world!", 12)            = 12
+close(4)                                = 0
+newfstatat(1, "", {st_mode=S_IFREG|0644, st_size=3136, ...}, AT_EMPTY_PATH) = 0
+write(1, "C\303\263pia conclu\303\255da com sucesso.\n", 31Cópia concluída com sucesso.
+) = 31
+exit_group(0)                           = ?
++++ exited with 0 +++
+=======================================================================================================================
+DESCRICOES:
+
+1. execve:
+Inicia a execução do programa com os argumentos fornecidos.
+
+2. brk:
+Gerencia o heap do processo, ajustando o limite superior de memória alocável. Usado para alocação dinâmica.
+
+3. arch_prctl:
+Configura o registrador FS para operações internas de gerenciamento de memória em arquiteturas x86_64.
+
+4. mmap:
+Aloca memória para o programa.
+
+5. access:
+Verifica se um arquivo existe e se é acessível.
+
+6. openat:
+Abre um arquivo para leitura ou escrita.
+
+7. newfstatat:
+Obtém informações sobre um arquivo aberto, como tamanho, permissões e tipo.
+
+8. read:
+Lê o conteúdo de um arquivo.
+
+9. write:
+Escreve dados em um arquivo.
+
+10. close:
+Fecha arquivos abertos.
+
+11. mprotect:
+Altera as permissões de uma região de memória, por exemplo, para somente leitura.
+
+12. prlimit64:
+Obtém ou define limites de recursos para o processo, como o tamanho da pilha.
+
+13. getrandom:
+Gera números aleatórios usados para inicializar certas estruturas internas do programa.
+
+14. exit_group:
+Finaliza o programa com um código de saída (0 para sucesso).
